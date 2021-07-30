@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "---Container fully startet---"
+echo "---Container under Construction!---"
 sleep infinity
