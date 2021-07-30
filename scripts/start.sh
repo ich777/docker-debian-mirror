@@ -12,7 +12,12 @@ else
 fi
 
 echo "---Starting...---"
-chown -R ${UID}:${GID} /opt/scripts
+if [ ! -f ${DATA_DIR}/config/mirror.list ]; then
+  cp /etc/apt/mirror.list ${DATA_DIR}/config/mirror.list
+fi
+chown -R root:${GID} /opt/scripts
+chmod -R 750 /opt/scripts
+chown -R ${UID}:${GID} ${DATA_DIR}
 
 term_handler() {
 	kill -SIGTERM "$killpid"
