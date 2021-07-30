@@ -6,7 +6,7 @@ RUN apt-get update && \
 	apt-get -y install apt-mirror && \
 	rm -rf /var/lib/apt/lists/*
 
-ENV DATA_DIR="/debian-mirror/"
+ENV DATA_DIR="/debian-mirror"
 ENV MIRROR_DIR="$DATA_DIR/data"
 ENV CONFIG_DIR="$DATA_DIR/config"
 ENV UID=99
