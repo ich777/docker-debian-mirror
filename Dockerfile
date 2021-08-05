@@ -2,7 +2,7 @@ FROM ich777/debian-baseimage:bullseye
 
 LABEL maintainer="admin@minenet.at"
 
-RUN echo "deb http://10.0.0.1:980/debian bullseye main contrib non-free" > /etc/apt/sources.list && \
+RUN echo "deb http://10.0.0.1:980/debian bullseye main contrib non-free" >> /etc/apt/sources.list && \
 	apt-get update && \
 	apt-get -y install apt-mirror xz-utils cron apache2 && \
 	rm -rf /var/lib/apt/lists/* && \
