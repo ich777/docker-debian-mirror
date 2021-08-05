@@ -6,7 +6,8 @@ RUN apt-get update && \
 	apt-get -y install apt-mirror xz-utils cron apache2 && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/www/* && \
-	echo "ServerName localhost" >> /etc/apache2/apache2.conf
+	echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+	sed '/DocumentRoot.*/s//DocumentRoot \/var\/www/' /etc/apache2/sites-enabled/000-default.conf
 
 ENV DATA_DIR="/debian-mirror"
 ENV MIRROR_DIR="$DATA_DIR/data"
