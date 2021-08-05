@@ -19,7 +19,7 @@ else
 fi
 
 if [ "${FORCE_UPDATE}" == "true" ]; then
-  crontab -r
+  crontab -r 2>/dev/null
   echo "---Force update enabled!---"
   apt-mirror ${CONFIG_DIR}/mirror.list
 fi
