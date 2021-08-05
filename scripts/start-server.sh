@@ -14,7 +14,7 @@ if [ ! -d /var/www/debian ]; then
 fi
 if [ ! "$(crontab -l 2>/dev/null)" ]; then
   echo "${CRON_SCHEDULE}  /usr/bin/apt-mirror ${CONFIG_DIR}/mirror.list" > /tmp/cron
-  sleep 1
+  sleep 3
   crontab /tmp/cron
 fi
 echo "---'apt-mirror' will be run on the following cron schedule: ${CRON_SCHEDULE}---"
