@@ -8,6 +8,10 @@ if [ -z "$(ls -A ${MIRROR_DIR})" ]; then
   echo "---Starting first mirror---"
   apt-mirror ${CONFIG_DIR}/mirror.list
   exit 0
+elif [ "${FORCE_UPDATE}" == "true" ]; then
+  echo "---Force update enabled!---"
+  apt-mirror ${CONFIG_DIR}/mirror.list
+  exit 0
 fi
 if [ ! -d /var/www/debian ]; then
   ln -s ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/)/debian /var/www/debian
