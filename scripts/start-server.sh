@@ -13,8 +13,13 @@ elif [ "${FORCE_UPDATE}" == "true" ]; then
   apt-mirror ${CONFIG_DIR}/mirror.list
   exit 0
 fi
-if [ ! -d /var/www/debian ]; then
-  ln -s ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/)/debian /var/www/debian
+if [ ! -d ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/)/debian ]; then
+  echo "---Something went horribly wrong, can't find the mirror directory!---"
+  sleep infinity
+else
+  if [ ! -d /var/www/debian ]; then
+    ln -s ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/)/debian /var/www/debian
+  fi
 fi
 echo "${CRON_SCHEDULE}  /usr/bin/apt-mirror ${CONFIG_DIR}/mirror.list" > ${CONFIG_DIR}/cron
 sleep 1
