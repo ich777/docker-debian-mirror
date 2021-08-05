@@ -7,6 +7,12 @@ fi
 if [ -z "$(ls -A ${MIRROR_DIR})" ]; then
   echo "---Starting first mirror---"
   apt-mirror ${CONFIG_DIR}/mirror.list
+  exit 0
 fi
-echo "---Container under Construction!---"
+if [ ! "$(crontab -l 2>/dev/null)" ]; then
+  echo "${CRON_SCHEDULE}  /usr/bin/apt-mirror ${CONFIG_DIR}/mirror.list" > /tmp/cron
+  sleep 1
+  crontab /tmp/cron
+fi
+echo "---'apt-mirror' will be run on the following cron schedule: ${CRON_SCHEDULE}---"
 sleep infinity
