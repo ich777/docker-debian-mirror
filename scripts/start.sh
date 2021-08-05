@@ -11,6 +11,10 @@ else
 	echo "---No optional script found, continuing---"
 fi
 
+echo "---Starting cron---"
+export PATH=/bin:/usr/bin:${DATA_DIR}:$PATH
+/usr/sbin/cron -- p
+
 echo "---Starting...---"
 if [ ! -f ${DATA_DIR}/config/mirror.list ]; then
   cp /etc/apt/mirror.list ${DATA_DIR}/config/mirror.list
@@ -18,9 +22,12 @@ fi
 chown -R root:${GID} /opt/scripts
 chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
+if [ -f /var/run/crond.pid ]; then
+	rm -rf /var/run/crond.pid
+fi
 
 term_handler() {
-	kill -SIGTERM "$killpid"
+	kill -SIGTERM "$killpid" 2>/dev/null
 	wait "$killpid" -f 2>/dev/null
 	exit 143;
 }
