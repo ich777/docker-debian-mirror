@@ -8,9 +8,6 @@ if [ -z "$(ls -A ${MIRROR_DIR})" ]; then
   echo "---Starting first mirror---"
   apt-mirror ${CONFIG_DIR}/mirror.list
   exit 0
-elif [ "${FORCE_UPDATE}" == "true" ]; then
-  echo "---Force update enabled!---"
-  apt-mirror ${CONFIG_DIR}/mirror.list
 fi
 if [ ! -d ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/)/debian ]; then
   echo "---Something went horribly wrong, can't find the mirror directory!---"
@@ -19,6 +16,12 @@ else
   if [ ! -d /var/www/debian ]; then
     ln -s ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/)/debian /var/www/debian
   fi
+fi
+
+if [ "${FORCE_UPDATE}" == "true" ]; then
+  crontab -r
+  echo "---Force update enabled!---"
+  apt-mirror ${CONFIG_DIR}/mirror.list
 fi
 echo "${CRON_SCHEDULE}  /usr/bin/apt-mirror ${CONFIG_DIR}/mirror.list" > ${CONFIG_DIR}/cron
 sleep 1
