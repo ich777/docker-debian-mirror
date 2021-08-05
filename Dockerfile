@@ -25,7 +25,6 @@ RUN mkdir -p $DATA_DIR && \
 	ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
-COPY /cron /tmp/
 RUN chmod -R 770 /opt/scripts/
 
 EXPOSE 980
