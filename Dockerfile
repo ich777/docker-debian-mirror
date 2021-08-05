@@ -3,7 +3,7 @@ FROM ich777/debian-baseimage:bullseye
 LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
-	apt-get -y install apt-mirror xz-utils cron && \
+	apt-get -y install apt-mirror xz-utils cron apache2 && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/debian-mirror"
