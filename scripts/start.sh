@@ -3,6 +3,8 @@ echo "---Checking if UID: ${UID} matches user---"
 usermod -u ${UID} ${USER}
 echo "---Checking if GID: ${GID} matches user---"
 usermod -g ${GID} ${USER}
+echo "---Adding user: ${USER} to www-data---"
+adduser ${USER} www-data
 echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
 
@@ -18,6 +20,12 @@ fi
 echo "---Starting cron---"
 export PATH=/bin:/usr/bin:${DATA_DIR}:$PATH
 /usr/sbin/cron -- p
+
+echo "---Starting apache2---"
+chown -R ${UID}:${GID} /var/www
+sed -i '0,/Listen.*/s//Listen '${APACHE2_PORT}'/' /etc/apache2/ports.conf
+sed -i '/<VirtualHost \*:.*/s//<VirtualHost\*:'${APACHE2_PORT}'>/' /etc/apache2/sites-enabled/000-default.conf
+/usr/sbin/apache2ctl start
 
 echo "---Starting...---"
 if [ ! -f ${DATA_DIR}/config/mirror.list ]; then
