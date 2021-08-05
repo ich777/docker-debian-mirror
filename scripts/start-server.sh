@@ -11,7 +11,6 @@ if [ -z "$(ls -A ${MIRROR_DIR})" ]; then
 elif [ "${FORCE_UPDATE}" == "true" ]; then
   echo "---Force update enabled!---"
   apt-mirror ${CONFIG_DIR}/mirror.list
-  exit 0
 fi
 if [ ! -d ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/)/debian ]; then
   echo "---Something went horribly wrong, can't find the mirror directory!---"
