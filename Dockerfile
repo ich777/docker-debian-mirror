@@ -4,7 +4,8 @@ LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
 	apt-get -y install apt-mirror xz-utils cron apache2 && \
-	rm -rf /var/lib/apt/lists/*
+	rm -rf /var/lib/apt/lists/* && \
+	rm -rf /var/www/*
 
 ENV DATA_DIR="/debian-mirror"
 ENV MIRROR_DIR="$DATA_DIR/data"
