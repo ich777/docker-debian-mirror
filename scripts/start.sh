@@ -24,7 +24,7 @@ export PATH=/bin:/usr/bin:${DATA_DIR}:$PATH
 echo "---Starting apache2---"
 chown -R ${UID}:${GID} /var/www
 sed -i '0,/Listen.*/s//Listen '${APACHE2_PORT}'/' /etc/apache2/ports.conf
-sed -i '/<VirtualHost\*:.*/s//<VirtualHost \*:'${APACHE2_PORT}'>/' /etc/apache2/sites-enabled/000-default.conf
+sed -i '/<VirtualHost \*:.*/s//<VirtualHost \*:'${APACHE2_PORT}'>/' /etc/apache2/sites-enabled/000-default.conf
 /usr/sbin/apache2ctl start
 
 echo "---Starting...---"
