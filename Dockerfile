@@ -11,6 +11,8 @@ RUN apt-get update && \
 ENV DATA_DIR="/debian-mirror"
 ENV MIRROR_DIR="$DATA_DIR/data"
 ENV CONFIG_DIR="$DATA_DIR/config"
+ENV APACHE2_PORT=980
+ENV CRON_SCHEDULE="0 1 * * *"
 ENV UID=99
 ENV GID=100
 ENV UMASK=0000
@@ -24,6 +26,8 @@ RUN mkdir -p $DATA_DIR && \
 ADD /scripts/ /opt/scripts/
 COPY /cron /tmp/
 RUN chmod -R 770 /opt/scripts/
+
+EXPOSE 980
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start.sh"]
