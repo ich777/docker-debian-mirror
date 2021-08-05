@@ -7,7 +7,8 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/www/* && \
 	echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
-	sed -i '/DocumentRoot.*/s//DocumentRoot \/var\/www/' /etc/apache2/sites-enabled/000-default.conf
+	sed -i '/DocumentRoot.*/s//DocumentRoot \/var\/www/' /etc/apache2/sites-enabled/000-default.conf && \
+	sed -i '/unstable/s//stable/' /etc/apt/mirror.list
 
 ENV DATA_DIR="/debian-mirror"
 ENV MIRROR_DIR="$DATA_DIR/data"
