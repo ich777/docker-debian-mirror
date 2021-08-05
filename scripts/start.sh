@@ -31,8 +31,8 @@ sed -i '/<VirtualHost \*:.*/s//<VirtualHost \*:'${APACHE2_PORT}'>/' /etc/apache2
 /usr/sbin/apache2ctl start
 
 echo "---Starting...---"
-if [ ! -f ${DATA_DIR}/config/mirror.list ]; then
-  cp /etc/apt/mirror.list ${DATA_DIR}/config/mirror.list
+if [ ! -f ${CONFIG_DIR}/mirror.list ]; then
+  cp /etc/apt/mirror.list ${CONFIG_DIR}/mirror.list
 fi
 chown -R root:${GID} /opt/scripts
 chmod -R 750 /opt/scripts
