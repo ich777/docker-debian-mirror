@@ -34,6 +34,8 @@ fi
 chown -R root:${GID} /opt/scripts
 chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
+chmod -R 770 /tmp
+chown -R ${UID}:${GID} /tmp
 if [ -f /var/run/crond.pid ]; then
 	rm -rf /var/run/crond.pid
 fi
