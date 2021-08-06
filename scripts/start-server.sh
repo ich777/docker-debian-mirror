@@ -23,7 +23,7 @@ if [ "${FORCE_UPDATE}" == "true" ]; then
   echo "---Force update enabled!---"
   apt-mirror ${CONFIG_DIR}/mirror.list
 fi
-echo "${CRON_SCHEDULE}  /usr/bin/apt-mirror ${CONFIG_DIR}/mirror.list" > ${CONFIG_DIR}/cron
+echo "${CRON_SCHEDULE} /usr/bin/apt-mirror ${CONFIG_DIR}/mirror.list  1> /dev/null" > ${CONFIG_DIR}/cron
 sleep 1
 crontab ${CONFIG_DIR}/cron
 echo "---'apt-mirror' will be run on the following cron schedule: ${CRON_SCHEDULE}---"
