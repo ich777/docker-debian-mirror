@@ -27,11 +27,8 @@ echo "${CRON_SCHEDULE} /usr/bin/apt-mirror ${CONFIG_DIR}/mirror.list  1> /dev/nu
 sleep 1
 crontab ${CONFIG_DIR}/cron
 echo "---'apt-mirror' will be run on the following cron schedule: ${CRON_SCHEDULE}---"
-echo
 echo "---Mirror started!---"
-echo
 echo "---Add the following line to your '/etc/apt/sources.list' file on your Debian installation:---"
 echo "deb http://IPFROMTECONTAINER:${APACHE2_PORT}/debian stable main contrib non-free"
-echo
 echo "---Don't forget to change 'IPFROMTECONTAINER' and also change the repositories to match your config!---"
 sleep infinity
