@@ -1,4 +1,18 @@
 #!/bin/bash
+if [ ! -f ${CONFIG_DIR}/postmirror.sh ]; then
+  echo "${MIRROR_DIR}/var/clean.sh" > ${CONFIG_DIR}/postmirror.sh
+  if [ ! -d ${MIRROR_DIR}/var ]; then
+    mkdir -p ${MIRROR_DIR}/var
+  fi
+  cp ${CONFIG_DIR}/postmirror.sh  ${MIRROR_DIR}/var/postmirror.sh
+  chmod +x ${MIRROR_DIR}/var/postmirror.sh
+else
+  if [ ! -d ${MIRROR_DIR}/var ]; then
+    mkdir -p ${MIRROR_DIR}/var
+  fi
+  cp ${CONFIG_DIR}/postmirror.sh  ${MIRROR_DIR}/var/postmirror.sh
+  chmod +x ${MIRROR_DIR}/var/postmirror.sh
+fi
 if [ "$(grep -E "# set base_path    /var/spool/apt-mirror" ${CONFIG_DIR}/mirror.list)" ]; then
   sed -i "/# set base_path    \/var\/spool\/apt-mirror/c\set base_path    ${MIRROR_DIR}" ${CONFIG_DIR}/mirror.list
   echo "---Please edit your 'mirror.list' file in your conig directory and restart the container when done!---"
