@@ -1,4 +1,4 @@
-FROM ich777/debian-baseimage:bullseye
+FROM ich777/debian-baseimage
 
 LABEL maintainer="admin@minenet.at"
 
