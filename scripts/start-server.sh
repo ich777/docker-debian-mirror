@@ -18,12 +18,12 @@ if [ "$(grep -E "# set base_path    /var/spool/apt-mirror" ${CONFIG_DIR}/mirror.
   echo "---Please edit your 'mirror.list' file in your conig directory and restart the container when done!---"
   sleep infinity
 fi
-if [ -z "$(ls -A ${MIRROR_DIR})" ]; then
+if [ -z "$(ls -I "var" -A ${MIRROR_DIR})" ]; then
   echo "---Starting first mirror---"
   apt-mirror ${CONFIG_DIR}/mirror.list
   exit 0
 fi
-if [ ! -d ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/)/debian ]; then
+if [ ! -d ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/ 2>/dev/null)/debian ]; then
   echo "---Something went horribly wrong, can't find the mirror directory!---"
   sleep infinity
 else
