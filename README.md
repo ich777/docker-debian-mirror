@@ -1,15 +1,15 @@
 # Debian-APT-Mirror Docker optimized for Unraid
 This container will run apt-mirror and Apache2. This allows you to create a local apt mirror for Debian packages.
 
-On the first run you will have to edit the mirror.list that lives in your CONFIG_DIR which repositories you want to sync and eventually other settings like the threads to use for downloading,... and restart the container (keep an eye on the logs the container will tell you what to do).
+On first run you will have to edit the mirror.list file that lives in your CONFIG_DIR which repositories you want to sync and other settings like how many threads to use for downloading,...
+Restart the container afterwards (keep an eye on the logs the container will tell you what to do).
 
-**ATTENTION/WARNING:** Keep in mind that the first sync can take very long depending on how much repositories you've selected to sync (stable main contrib non-free: Will need about 200GB of hard drive space!).
+**ATTENTION/WARNING:** Keep in mind that the first sync can take very long depending on how much repositories you've selected (stable main contrib non-free: Will take about 200GB of hard drive space!).
 
-**Update from the mirror files:** By default a cron job will run every day at 1am that will run apt-mirror and update your mirror.
+**Update from the mirror files:** By default a cron job will run every day at 01:00 which will update your mirror.
 
 **Mirror address:** The default address for the mirror is 'http://ipFROMtheCONTAINER:980'
-Add something like this to your '/etc/apt/sources.list': 'deb http://ipFROMtheCONTAINER:980/debian stable main contrib non-free' <- without quotes
-(please edit 'ipFROMtheCONTAINER', port and also the repositories to match your config)
+Add something like this to your '/etc/apt/sources.list': 'deb http://ipFROMtheCONTAINER:980/debian stable main contrib non-free'
 
 ## Env params
 | Name | Value | Example |
@@ -38,6 +38,7 @@ docker run --name Debian-Mirror -d \
 	--env 'DATA_PERMS=770' \
 	--volume /mnt/cache/appdata/debian-mirror/data:/debian-mirror/data \
 	--volume /mnt/cache/appdata/debian-mirror/config:/debian-mirror/config \
+	--restart=unless-stopped \
 	ich777/debian-mirror
 ```
 
