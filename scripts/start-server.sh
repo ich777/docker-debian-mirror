@@ -31,9 +31,22 @@ if [ ! -d ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/ 2>/dev/null)/debian ];
   echo "---Something went horribly wrong, can't find the mirror directory!---"
   sleep infinity
 else
-  if [ ! -d /var/www/debian ]; then
-    ln -s ${MIRROR_DIR}/mirror/$(ls ${MIRROR_DIR}/mirror/)/debian /var/www/debian
-  fi
+  for directory in $(ls -1 ${MIRROR_DIR}/mirror/)
+  do
+    for subdir in $(ls -1 ${MIRROR_DIR}/mirror/$directory)
+    do
+      if [ ! -d /var/www/$subdir ]; then
+        echo "Creating softlink for \".../$directory/$subdir\" in \"/var/www/\""
+        ln -s ${MIRROR_DIR}/mirror/$directory/$subdir /var/www/$subdir
+      else
+        if [ $(readlink -f /var/www/$subdir) == "${MIRROR_DIR}/mirror/$directory/$subdir" ]; then
+          echo "Nothing to do, directory: \"$subdir\" already found in \"/var/www/\""
+        else
+          echo "ERROR: Found \"$subdir\" already in \"/var/www/\", please check you configuration for \"$directory\"!"
+        fi
+      fi
+    done
+  done
 fi
 
 if [ "${FORCE_UPDATE}" == "true" ]; then
